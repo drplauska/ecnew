@@ -1,70 +1,70 @@
-const path = require("path");
-const webpack = require("webpack");
-const webpackMerge = require("webpack-merge");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ResourcesManifestPlugin = require("resources-manifest-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ResourcesManifestPlugin = require('resources-manifest-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = ({ mode } = { mode: "production" }) => {
+module.exports = ({ mode } = { mode: 'production' }) => {
   return webpackMerge(
     {
       mode,
-      entry: "./src/index.js",
+      entry: './src/index.js',
       optimization: {
         splitChunks: {
-          chunks: "all"
+          chunks: 'all',
         },
         minimizer: [
           new TerserPlugin({
-            sourceMap: true
-          })
-        ]
+            sourceMap: true,
+          }),
+        ],
       },
       module: {
         rules: [
           {
-            test: /\.jsx?$/,
-            use: ["babel-loader"]
+            test: /\.(js|jsx)$/,
+            use: ['babel-loader', 'eslint-loader'],
           },
           {
             test: /\.(png|jpe?g|gif|svg|webp|ttf)$/,
             use: [
               {
-                loader: "file-loader",
+                loader: 'file-loader',
                 options: {
-                  name: "static/media/[name].[contenthash:8].[ext]"
-                }
-              }
-            ]
-          }
-        ]
+                  name: 'static/media/[name].[contenthash:8].[ext]',
+                },
+              },
+            ],
+          },
+        ],
       },
       devServer: {
         historyApiFallback: true,
-        contentBase: path.join(__dirname, "public"),
-        open: true
+        contentBase: path.join(__dirname, 'public'),
+        open: true,
       },
       plugins: [
         new HtmlWebpackPlugin({
-          template: "public/index.html",
-          inject: "body",
+          template: 'public/index.html',
+          inject: 'body',
           minify: {
             html5: true,
             removeComments: true,
-            collapseWhitespace: true
+            collapseWhitespace: true,
           },
           templateParameters: {
-            PUBLIC_URL: ""
-          }
+            PUBLIC_URL: '',
+          },
         }),
         new ResourcesManifestPlugin(
           {
-            TO_CACHE: /.+\.(js|css|png|jpe?g|gif|svg|webp)$/
+            TO_CACHE: /.+\.(js|css|png|jpe?g|gif|svg|webp)$/,
           },
-          "public/service-worker.js"
+          'public/service-worker.js'
         ),
-        new webpack.ProgressPlugin()
-      ]
+        new webpack.ProgressPlugin(),
+      ],
     },
     require(`./build-utils/webpack.${mode}`)
   );
