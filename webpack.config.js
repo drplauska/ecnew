@@ -27,7 +27,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
             use: ["babel-loader"]
           },
           {
-            test: /\.(png|jpe?g|gif|svg|webp)$/,
+            test: /\.(png|jpe?g|gif|svg|webp|ttf)$/,
             use: [
               {
                 loader: "file-loader",

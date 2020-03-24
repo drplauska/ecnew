@@ -1,0 +1,48 @@
+body {
+  font-family: DanskeText;
+  color: #36373e;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.orangeBall {
+  display: block;
+  background-color: #bb5037;
+  border-radius: 100%;
+  -webkit-animation: bounceIn 1.5s cubic-bezier(0.61, 1, 0.88, 1);
+  animation: bounceIn 1.5s cubic-bezier(0.61, 1, 0.88, 1);
+}
+
+@-webkit-keyframes bounceIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    -webkit-transform: scale(1.04);
+  }
+  70% {
+    -webkit-transform: scale(0.93);
+  }
+  100% {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  70% {
+    transform: scale(0.93);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
